@@ -6,14 +6,14 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>573</width>
-    <height>339</height>
+    <width>428</width>
+    <height>227</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>GUIPanel</string>
   </property>
-  <widget class="QPushButton" name="runButton">
+  <widget class="QPushButton" name="runMQTTButton">
    <property name="geometry">
     <rect>
      <x>300</x>
@@ -30,7 +30,7 @@
    <property name="geometry">
     <rect>
      <x>70</x>
-     <y>310</y>
+     <y>200</y>
      <width>331</width>
      <height>17</height>
     </rect>
@@ -43,7 +43,7 @@
    <property name="geometry">
     <rect>
      <x>0</x>
-     <y>310</y>
+     <y>190</y>
      <width>64</width>
      <height>27</height>
     </rect>
@@ -101,86 +101,104 @@
     </rect>
    </property>
    <property name="text">
-    <string>/cc3200/ToggleLEDCmdJSON</string>
+    <string>rxtopic</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton_2">
-   <property name="geometry">
-    <rect>
-     <x>40</x>
-     <y>140</y>
-     <width>101</width>
-     <height>51</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">background-color:red</string>
-   </property>
-   <property name="text">
-    <string>Enciende</string>
-   </property>
-   <property name="checkable">
+  <widget class="Led" name="led">
+   <property name="enabled">
     <bool>true</bool>
    </property>
-  </widget>
-  <widget class="QPushButton" name="pushButton_3">
    <property name="geometry">
     <rect>
-     <x>160</x>
-     <y>140</y>
-     <width>101</width>
-     <height>51</height>
+     <x>100</x>
+     <y>80</y>
+     <width>81</width>
+     <height>81</height>
     </rect>
    </property>
-   <property name="styleSheet">
-    <string notr="true">background-color:green</string>
+   <property name="toolTip">
+    <string>Color Led component</string>
    </property>
-   <property name="text">
-    <string>Enciende</string>
+   <property name="whatsThis">
+    <string>Led indicator</string>
    </property>
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="pushButton_4">
-   <property name="geometry">
-    <rect>
-     <x>280</x>
-     <y>140</y>
-     <width>101</width>
-     <height>51</height>
-    </rect>
-   </property>
-   <property name="autoFillBackground">
+   <property name="checked">
     <bool>false</bool>
    </property>
-   <property name="styleSheet">
-    <string notr="true">background-color:blue</string>
+   <property name="color">
+    <color>
+     <red>85</red>
+     <green>170</green>
+     <blue>255</blue>
+    </color>
    </property>
-   <property name="text">
-    <string>Enciende</string>
-   </property>
-   <property name="checkable">
+  </widget>
+  <widget class="Led" name="led_2">
+   <property name="enabled">
     <bool>true</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>230</x>
+     <y>80</y>
+     <width>81</width>
+     <height>81</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Color Led component</string>
+   </property>
+   <property name="whatsThis">
+    <string>Led indicator</string>
+   </property>
+   <property name="checked">
+    <bool>false</bool>
+   </property>
+   <property name="color">
+    <color>
+     <red>85</red>
+     <green>170</green>
+     <blue>255</blue>
+    </color>
    </property>
   </widget>
   <widget class="QLabel" name="label_3">
    <property name="geometry">
     <rect>
-     <x>40</x>
-     <y>200</y>
-     <width>421</width>
+     <x>100</x>
+     <y>170</y>
+     <width>71</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>LEFT_BUTTON</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_4">
+   <property name="geometry">
+    <rect>
+     <x>230</x>
+     <y>170</y>
+     <width>81</width>
      <height>16</height>
     </rect>
    </property>
    <property name="text">
-    <string>Ojo, el naranja no esta implementado en el codigo de partida para la CC3200</string>
+    <string>RIGHT_BUTTON</string>
    </property>
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>Led</class>
+   <extends>QWidget</extends>
+   <header>analogwidgets/led.h</header>
+  </customwidget>
+ </customwidgets>
  <tabstops>
-  <tabstop>runButton</tabstop>
+  <tabstop>runMQTTButton</tabstop>
  </tabstops>
  <resources/>
  <connections/>

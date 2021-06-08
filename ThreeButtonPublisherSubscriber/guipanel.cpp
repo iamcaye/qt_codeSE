@@ -102,6 +102,9 @@ void GUIPanel::onMQTT_Received(const QMQTT::Message &message)
             QJsonValue entrada=objeto_json["redLed"]; //Obtengo la entrada redLed. Esto lo puedo hacer porque el operador [] está sobrecargado
             QJsonValue entrada2=objeto_json["greenLed"]; //Obtengo la entrada orangeLed. Esto lo puedo hacer porque el operador [] está sobrecargado
             QJsonValue entrada3=objeto_json["blueLed"]; //Obtengo la entrada greenLed. Esto lo puedo hacer porque el operador [] está sobrecargado
+            QJsonValue pin2 = objeto_json["pin2"];
+            QJsonValue pin3 = objeto_json["pin3"];
+            QJsonValue pin4 = objeto_json["pin4"];
 
 
             if (entrada.isBool())
@@ -161,6 +164,66 @@ void GUIPanel::onMQTT_Received(const QMQTT::Message &message)
                 }
                 ui->pushButton_4->blockSignals(previousblockinstate);
             }
+
+            if (pin2.isBool())
+            {   //Compruebo que es booleano...
+
+                checked=pin2.toBool(); //Leo el valor de objeto (si fuese entero usaria toInt(), toDouble() si es doble....
+                previousblockinstate=ui->pushButton_5->blockSignals(true);   //Esto es para evitar que el cambio de valor
+                                                                     //provoque otro envio al topic por el que he recibido
+
+                ui->pushButton_5->setChecked(checked);
+                if (checked)
+                {
+                    ui->pushButton_5->setText("Apaga");
+
+                }
+                else
+                {
+                    ui->pushButton_5->setText("Enciende");
+                }
+                ui->pushButton_5->blockSignals(previousblockinstate);
+            }
+
+            if (pin3.isBool())
+            {   //Compruebo que es booleano...
+
+                checked=pin3.toBool(); //Leo el valor de objeto (si fuese entero usaria toInt(), toDouble() si es doble....
+                previousblockinstate=ui->pushButton_6->blockSignals(true);   //Esto es para evitar que el cambio de valor
+                                                                     //provoque otro envio al topic por el que he recibido
+
+                ui->pushButton_6->setChecked(checked);
+                if (checked)
+                {
+                    ui->pushButton_6->setText("Apaga");
+
+                }
+                else
+                {
+                    ui->pushButton_6->setText("Enciende");
+                }
+                ui->pushButton_6->blockSignals(previousblockinstate);
+            }
+
+            if (pin4.isBool())
+            {   //Compruebo que es booleano...
+
+                checked=pin4.toBool(); //Leo el valor de objeto (si fuese entero usaria toInt(), toDouble() si es doble....
+                previousblockinstate=ui->pushButton_7->blockSignals(true);   //Esto es para evitar que el cambio de valor
+                                                                     //provoque otro envio al topic por el que he recibido
+
+                ui->pushButton_7->setChecked(checked);
+                if (checked)
+                {
+                    ui->pushButton_7->setText("Apaga");
+
+                }
+                else
+                {
+                    ui->pushButton_7->setText("Enciende");
+                }
+                ui->pushButton_7->blockSignals(previousblockinstate);
+            }
         }
 
 
@@ -190,9 +253,6 @@ void GUIPanel::onMQTT_Connected()
 void GUIPanel::SendMessage()
 {
 
-    QByteArray cadena;
-
-
     QJsonObject objeto_json;
     //Añade un campo "redLed" al objeto JSON, con el valor (true o false) contenido en checked
     objeto_json["redLed"]=ui->pushButton_2->isChecked(); //Puedo hacer ["redLed"] porque el operador [] está sobrecargado.
@@ -206,6 +266,23 @@ void GUIPanel::SendMessage()
     QMQTT::Message msg(0, ui->topic->text(), mensaje.toJson()); //Crea el mensaje MQTT contieniendo el mensaje en formato JSON
 
     //Publica el mensaje
+    _client->publish(msg);
+
+}
+
+void GUIPanel::SendPinsMessage()
+{
+
+    QJsonObject objeto_json;
+
+    objeto_json["pin2"]=ui->pushButton_5->isChecked();
+    objeto_json["pin3"]=ui->pushButton_6->isChecked();
+    objeto_json["pin4"]=ui->pushButton_7->isChecked();
+
+    QJsonDocument mensaje(objeto_json);
+
+    QMQTT::Message msg(0, ui->topic->text(), mensaje.toJson());
+
     _client->publish(msg);
 
 }
@@ -253,4 +330,74 @@ void GUIPanel::on_pushButton_3_toggled(bool checked)
         ui->pushButton_3->setText("Enciende");
     }
     SendMessage();
+}
+
+void GUIPanel::on_pushButton_5_toggled(bool checked)
+{
+   if(checked)
+   {
+       ui -> pushButton_5 -> setText("Apaga");
+   }
+   else
+   {
+       ui -> pushButton_5 -> setText("Enciende");
+   }
+    SendPinsMessage();
+}
+
+void GUIPanel::on_pushButton_6_toggled(bool checked)
+{
+   if(checked)
+   {
+       ui -> pushButton_6 -> setText("Apaga");
+   }
+   else
+   {
+       ui -> pushButton_6 -> setText("Enciende");
+   }
+    SendPinsMessage();
+}
+
+void GUIPanel::on_pushButton_7_toggled(bool checked)
+{
+   if(checked)
+   {
+       ui -> pushButton_7 -> setText("Apaga");
+   }
+   else
+   {
+       ui -> pushButton_7 -> setText("Enciende");
+   }
+    SendPinsMessage();
+}
+
+void GUIPanel::on_colorWheel_colorChanged(const QColor &arg1)
+{
+    int colores[3] = {0, 0, 0};
+    arg1.getRgb(&colores[0], &colores[1], &colores[2]);
+
+    QJsonObject objeto_json;
+
+    objeto_json["redRGB"] = colores[0];
+    objeto_json["greenRGB"] = colores[1];
+    objeto_json["blueRGB"] = colores[2];
+
+    QJsonDocument mensaje(objeto_json);
+
+    QMQTT::Message msg(0, ui->topic->text(), mensaje.toJson());
+
+    _client->publish(msg);
+}
+
+void GUIPanel::on_Knob_valueChanged(double value)
+{
+    QJsonObject objeto_json;
+
+    objeto_json["intensityRGB"] = value;
+
+    QJsonDocument mensaje(objeto_json);
+
+    QMQTT::Message msg(0, ui->topic->text(), mensaje.toJson());
+
+    _client->publish(msg);
 }

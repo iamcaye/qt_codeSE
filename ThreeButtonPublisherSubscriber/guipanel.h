@@ -32,10 +32,15 @@ private slots:
 
 
     void on_pushButton_2_toggled(bool checked);
-
-    void on_pushButton_4_toggled(bool checked);
-
     void on_pushButton_3_toggled(bool checked);
+    void on_pushButton_4_toggled(bool checked);
+    void on_pushButton_5_toggled(bool checked);
+    void on_pushButton_6_toggled(bool checked);
+    void on_pushButton_7_toggled(bool checked);
+
+    void on_colorWheel_colorChanged(const QColor &arg1);
+
+    void on_Knob_valueChanged(double value);
 
 private: // funciones privadas
 //    void pingDevice();
@@ -44,6 +49,7 @@ private: // funciones privadas
     void activateRunButton();
     void cambiaLEDs();
     void SendMessage();
+    void SendPinsMessage();
 private:
     Ui::GUIPanel *ui;
     int transactionCount;
