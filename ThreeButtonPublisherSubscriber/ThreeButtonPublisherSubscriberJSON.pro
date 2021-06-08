@@ -21,4 +21,4 @@ CONFIG   +=qwt # Añadir para usar Qwidgets
 
 QT += widgets #Para QT4-->QT5
 
-CONFIG += qwt qmqtt
+CONFIG += qwt qmqtt colorwidgets

@@ -19,6 +19,7 @@ FORMS    += guipanel.ui
 
 QT += widgets #Para QT4-->QT5
 
-CONFIG += qwt analogwidgets qmqtt
+CONFIG += qwt analogwidgets qmqtt colorwidgets
+
 
 
