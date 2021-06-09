@@ -274,7 +274,6 @@ void GUIPanel::SendPinsMessage()
 {
 
     QJsonObject objeto_json;
-
     objeto_json["pin2"]=ui->pushButton_5->isChecked();
     objeto_json["pin3"]=ui->pushButton_6->isChecked();
     objeto_json["pin4"]=ui->pushButton_7->isChecked();
