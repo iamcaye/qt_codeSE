@@ -122,7 +122,7 @@ public:
         label->setText(QCoreApplication::translate("GUIPanel", "MQTT Broker", nullptr));
         label_2->setText(QCoreApplication::translate("GUIPanel", "Topic", nullptr));
         leHost->setText(QCoreApplication::translate("GUIPanel", "localhost", nullptr));
-        topic->setText(QCoreApplication::translate("GUIPanel", "rxtopic", nullptr));
+        topic->setText(QCoreApplication::translate("GUIPanel", "/rpi/ADC", nullptr));
         label_3->setText(QCoreApplication::translate("GUIPanel", "Frecuencia", nullptr));
     } // retranslateUi
 

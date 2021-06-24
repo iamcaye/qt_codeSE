@@ -101,7 +101,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>rxtopic</string>
+    <string>/rpi/ADC</string>
    </property>
   </widget>
   <widget class="QWidget" name="gridLayoutWidget">

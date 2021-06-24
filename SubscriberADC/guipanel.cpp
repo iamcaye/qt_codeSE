@@ -161,7 +161,7 @@ void GUIPanel::on_SpinBox_valueChanged(double arg1)
 
     QJsonDocument mensaje(objeto_json);
 
-    QMQTT::Message msg(0, "/rpi/controltopic", mensaje.toJson());
+    QMQTT::Message msg(0, "/rpi/ADC", mensaje.toJson());
 
     _client->publish(msg);
 }

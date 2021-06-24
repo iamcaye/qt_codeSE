@@ -148,7 +148,7 @@ public:
         label->setText(QCoreApplication::translate("GUIPanel", "MQTT Broker", nullptr));
         label_2->setText(QCoreApplication::translate("GUIPanel", "Topic", nullptr));
         leHost->setText(QCoreApplication::translate("GUIPanel", "localhost", nullptr));
-        topic->setText(QCoreApplication::translate("GUIPanel", "/cc3200/ToggleLEDCmdJSON", nullptr));
+        topic->setText(QCoreApplication::translate("GUIPanel", "/rpi/GPIOTiva", nullptr));
         pushButton_2->setText(QCoreApplication::translate("GUIPanel", "Enciende", nullptr));
         pushButton_3->setText(QCoreApplication::translate("GUIPanel", "Enciende", nullptr));
         pushButton_4->setText(QCoreApplication::translate("GUIPanel", "Enciende", nullptr));

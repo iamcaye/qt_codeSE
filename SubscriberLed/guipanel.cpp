@@ -131,12 +131,15 @@ void GUIPanel::onMQTT_Received(const QMQTT::Message &message)
         QJsonParseError error;
         QJsonDocument mensaje=QJsonDocument::fromJson(message.payload(),&error);
         bool checked;
+        int n_puls_r = 0, n_puls_l = 0;
 
         if ((error.error==QJsonParseError::NoError)&&(mensaje.isObject()))
         {
             QJsonObject objeto_json=mensaje.object();
             QJsonValue right_button = objeto_json["rightButton"];
             QJsonValue left_button = objeto_json["leftButton"];
+            QJsonValue n_right_button = objeto_json["nRightButton"];
+            QJsonValue n_left_button = objeto_json["nLeftButton"];
 
             if(left_button.isBool())
             {
@@ -148,6 +151,18 @@ void GUIPanel::onMQTT_Received(const QMQTT::Message &message)
             {
                 checked = right_button.toBool();
                 ui -> led_2 -> setChecked(checked);
+            }
+
+            if(!n_left_button.isUndefined())
+            {
+                n_puls_l = n_left_button.toInt();
+                ui -> leftNumber -> display(n_puls_l);
+            }
+
+            if(!n_right_button.isUndefined())
+            {
+                n_puls_r = n_right_button.toInt();
+                ui -> rightNumber -> display(n_puls_r);
             }
         }
     }

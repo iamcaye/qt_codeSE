@@ -383,7 +383,7 @@ void GUIPanel::on_colorWheel_colorChanged(const QColor &arg1)
 
     QJsonDocument mensaje(objeto_json);
 
-    QMQTT::Message msg(0, ui->topic->text(), mensaje.toJson());
+    QMQTT::Message msg(0, "/rpi/PWM", mensaje.toJson());
 
     _client->publish(msg);
 }
@@ -396,7 +396,7 @@ void GUIPanel::on_Knob_valueChanged(double value)
 
     QJsonDocument mensaje(objeto_json);
 
-    QMQTT::Message msg(0, ui->topic->text(), mensaje.toJson());
+    QMQTT::Message msg(0, "/rpi/PWM", mensaje.toJson());
 
     _client->publish(msg);
 }

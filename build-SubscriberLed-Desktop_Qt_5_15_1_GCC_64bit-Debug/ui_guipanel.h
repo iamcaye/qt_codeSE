@@ -11,6 +11,7 @@
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
+#include <QtWidgets/QLCDNumber>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QPushButton>
@@ -33,6 +34,8 @@ public:
     Led *led_2;
     QLabel *label_3;
     QLabel *label_4;
+    QLCDNumber *leftNumber;
+    QLCDNumber *rightNumber;
 
     void setupUi(QWidget *GUIPanel)
     {
@@ -78,6 +81,18 @@ public:
         label_4 = new QLabel(GUIPanel);
         label_4->setObjectName(QString::fromUtf8("label_4"));
         label_4->setGeometry(QRect(230, 170, 81, 16));
+        leftNumber = new QLCDNumber(GUIPanel);
+        leftNumber->setObjectName(QString::fromUtf8("leftNumber"));
+        leftNumber->setGeometry(QRect(30, 92, 51, 61));
+        leftNumber->setFrameShape(QFrame::Box);
+        leftNumber->setMode(QLCDNumber::Dec);
+        leftNumber->setSegmentStyle(QLCDNumber::Flat);
+        rightNumber = new QLCDNumber(GUIPanel);
+        rightNumber->setObjectName(QString::fromUtf8("rightNumber"));
+        rightNumber->setGeometry(QRect(340, 90, 51, 61));
+        rightNumber->setFrameShape(QFrame::Box);
+        rightNumber->setMode(QLCDNumber::Dec);
+        rightNumber->setSegmentStyle(QLCDNumber::Flat);
 
         retranslateUi(GUIPanel);
 
@@ -93,7 +108,7 @@ public:
         label->setText(QCoreApplication::translate("GUIPanel", "MQTT Broker", nullptr));
         label_2->setText(QCoreApplication::translate("GUIPanel", "Topic", nullptr));
         leHost->setText(QCoreApplication::translate("GUIPanel", "localhost", nullptr));
-        topic->setText(QCoreApplication::translate("GUIPanel", "rxtopic", nullptr));
+        topic->setText(QCoreApplication::translate("GUIPanel", "/rpi/btntopic", nullptr));
 #if QT_CONFIG(tooltip)
         led->setToolTip(QCoreApplication::translate("GUIPanel", "Color Led component", nullptr));
 #endif // QT_CONFIG(tooltip)

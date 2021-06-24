@@ -101,7 +101,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>/cc3200/ToggleLEDCmdJSON</string>
+    <string>/rpi/GPIOTiva</string>
    </property>
   </widget>
   <widget class="QPushButton" name="pushButton_2">
