@@ -130,6 +130,7 @@ void GUIPanel::onMQTT_Received(const QMQTT::Message &message)
     {
         QJsonParseError error;
         QJsonDocument mensaje=QJsonDocument::fromJson(message.payload(),&error);
+        double g_frec;
 
         if ((error.error==QJsonParseError::NoError)&&(mensaje.isObject()))
         {
@@ -138,6 +139,15 @@ void GUIPanel::onMQTT_Received(const QMQTT::Message &message)
             QJsonValue ch2 = objeto_json["ADCch1"];
             QJsonValue ch3 = objeto_json["ADCch2"];
             QJsonValue ch4 = objeto_json["ADCch3"];
+            QJsonValue frec = objeto_json["ADCFrec"];
+
+            if(frec.isDouble())
+            {
+                ui -> SpinBox -> blockSignals(true);
+                g_frec = frec.toDouble();
+                ui -> SpinBox -> setValue(g_frec);
+                ui -> SpinBox -> blockSignals(false);
+            }
 
             if(ch1.isDouble() || ch2.isDouble() || ch3.isDouble() || ch4.isDouble())
             {

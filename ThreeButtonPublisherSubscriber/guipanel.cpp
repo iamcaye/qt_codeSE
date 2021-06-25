@@ -91,9 +91,11 @@ void GUIPanel::onMQTT_Received(const QMQTT::Message &message)
     {
         //Deshacemos el escalado
 
-
+        QColor c;
         QJsonParseError error;
         QJsonDocument mensaje=QJsonDocument::fromJson(message.payload(),&error);
+        int rgb[3];
+        double g_intensidad = 0.5f;
 
         if ((error.error==QJsonParseError::NoError)&&(mensaje.isObject()))
         { //Tengo que comprobar que el mensaje es del tipo adecuado y no hay errores de parseo...
@@ -106,6 +108,42 @@ void GUIPanel::onMQTT_Received(const QMQTT::Message &message)
             QJsonValue pin3 = objeto_json["pin3"];
             QJsonValue pin4 = objeto_json["pin4"];
 
+            QJsonValue r = objeto_json["redRGB"];
+            QJsonValue g = objeto_json["greenRGB"];
+            QJsonValue b = objeto_json["blueRGB"];
+
+            QJsonValue intensidad = objeto_json["intensityRGB"];
+
+            if(intensidad.isDouble())
+            {
+                ui -> Knob -> blockSignals(true);
+                g_intensidad = intensidad.toDouble();
+                ui -> Knob -> setValue(g_intensidad);
+                ui -> Knob -> blockSignals(false);
+            }
+
+            if(!r.isUndefined())
+            {
+                rgb[0] = r.toInt();
+            }
+
+            if(!g.isUndefined())
+            {
+                rgb[1] = g.toInt();
+            }
+
+            if(!b.isUndefined())
+            {
+                rgb[2] = b.toInt();
+            }
+
+            if(rgb[0] != 0 || rgb[1] != 0 || rgb[2] != 0)
+            {
+                ui->colorWheel->blockSignals(true);   //Esto es para evitar que el cambio de valor
+                c.setRgb(rgb[0], rgb[1], rgb[2], 255);
+                ui -> colorWheel -> setColor(c);
+                ui->colorWheel->blockSignals(false);
+            }
 
             if (entrada.isBool())
             {   //Compruebo que es booleano...
@@ -246,6 +284,7 @@ void GUIPanel::onMQTT_Connected()
     connected=true;
 
     _client->subscribe(topic,0); //Se suscribe al mismo topic en el que publica...
+    _client->subscribe("/rpi/PWM", 0);
 }
 
 
